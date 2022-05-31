@@ -96,7 +96,8 @@ declare module 'styled-components' {
     cowToken: {
       background: FlattenSimpleInterpolation
       boxShadow: FlattenSimpleInterpolation
-    },
+    }
+    dancingCow: FlattenSimpleInterpolation
     iconGradientBorder: FlattenSimpleInterpolation
     card: {
       background: FlattenSimpleInterpolation

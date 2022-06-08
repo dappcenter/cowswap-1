@@ -20,6 +20,7 @@ import {
   TokenSearchInput,
 } from './styled'
 import useDebounce from 'hooks/useDebounce'
+import { ContentWrapper as SearchInputFormatter } from 'components/SearchModal/CurrencySearch'
 
 const MAX_ITEMS = 10
 
@@ -56,13 +57,13 @@ const _filterCb = (token: Token, query?: string) => {
 }
 
 export default function TokenTable({
-  tokensData: rawTokensData,
+  tokensData: rawTokensData = [],
   maxItems = MAX_ITEMS,
   tableType = TableType.OVERVIEW,
   balances,
 }: TokenTableParams) {
   // search - takes precedence re:filtering
-  const [query, setQuery] = useState<string>()
+  const [query, setQuery] = useState<string>('')
   const debouncedQuery = useDebounce(query, 300)
 
   const handleChange = useCallback((event) => {
@@ -71,8 +72,13 @@ export default function TokenTable({
   }, [])
 
   const tokensData = useMemo(() => {
-    if (!debouncedQuery) return rawTokensData
-    return !!rawTokensData?.length ? rawTokensData.filter((token) => _filterCb(token, debouncedQuery)) : []
+    // only calc anything if we actually have more than 1 token in list
+    // and the user is actively searching tokens
+    if (rawTokensData.length > 1 && debouncedQuery) {
+      return rawTokensData.filter((token) => _filterCb(token, debouncedQuery))
+    } else {
+      return rawTokensData
+    }
   }, [rawTokensData, debouncedQuery])
 
   // sorting
@@ -174,14 +180,16 @@ export default function TokenTable({
 
   return (
     <Wrapper>
-      <TokenSearchInput
-        type="text"
-        id="token-search-input"
-        placeholder={`Search name/symbol or paste address`}
-        autoComplete="off"
-        value={query}
-        onChange={handleChange}
-      />
+      <SearchInputFormatter>
+        <TokenSearchInput
+          type="text"
+          id="token-search-input"
+          placeholder={`Search name/symbol or paste address`}
+          autoComplete="off"
+          value={query}
+          onChange={handleChange}
+        />
+      </SearchInputFormatter>
       {sortedTokens.length > 0 ? (
         <AutoColumn>
           <TableHeader>

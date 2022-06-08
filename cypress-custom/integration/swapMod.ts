@@ -12,29 +12,29 @@ describe('Swap (mod)', () => {
 
   it('can enter an amount into input', () => {
     cy.get('#swap-currency-input .token-amount-input')
-      .clear()
-      .type('0.001', { delay: 400, force: true })
+      .type('{selectall}{backspace}{selectall}{backspace}')
+      .type('0.001')
       .should('have.value', '0.001')
   })
 
   it('zero swap amount', () => {
     cy.get('#swap-currency-input .token-amount-input')
-      .clear()
-      .type('0.0', { delay: 400, force: true })
+      .type('{selectall}{backspace}{selectall}{backspace}')
+      .type('0.0')
       .should('have.value', '0.0')
   })
 
   it('invalid swap amount', () => {
     cy.get('#swap-currency-input .token-amount-input')
-      .clear()
-      .type('\\', { delay: 400, force: true })
+      .type('{selectall}{backspace}{selectall}{backspace}')
+      .type('\\')
       .should('have.value', '')
   })
 
   it('can enter an amount into output', () => {
     cy.get('#swap-currency-output .token-amount-input')
-      .clear()
-      .type('0.001', { delay: 400, force: true })
+      .type('{selectall}{backspace}{selectall}{backspace}')
+      .type('0.001')
       .should('have.value', '0.001')
   })
 

@@ -40,12 +40,6 @@ const TokenSingle = lazy(() => import(/* webpackChunkName: "token_single" */ 'pa
 const Governance = lazy(() => import(/* webpackChunkName: "governance" */ 'pages/Account/Governance'))
 const Affiliate = lazy(() => import(/* webpackChunkName: "affiliate" */ 'pages/Account/Affiliate'))
 
-// Account pages
-const Account = lazy(() => import(/* webpackChunkName: "account" */ 'pages/Account'))
-const Tokens = lazy(() => import(/* webpackChunkName: "account" */ 'pages/Account/Tokens'))
-const Governance = lazy(() => import(/* webpackChunkName: "account" */ 'pages/Account/Governance'))
-const Affiliate = lazy(() => import(/* webpackChunkName: "account" */ 'pages/Account/Affiliate'))
-
 if (SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
